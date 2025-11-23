@@ -1,13 +1,6 @@
 package Challenges.Musica;
 
-public class Musica {
-
-    public String Nome;
-    public int AnoDeLancamento;
-    private double Avaliacao;
-    private int TotalDeAvaliacoes;
-    public int DuracaoEmMinutos;
-
+class Main {
     public static void main(String[] args) {
         var music = new Musica();
 
@@ -23,6 +16,15 @@ public class Musica {
         music.exibeFichaTecnica(music);
         System.out.println("=========================================");
     }
+}
+
+public class Musica {
+
+    public String Nome;
+    public int AnoDeLancamento;
+    private double Avaliacao;
+    private int TotalDeAvaliacoes;
+    public int DuracaoEmMinutos;
 
     public void exibeFichaTecnica(Musica music) {
         System.out.println("Nome do Filme: " + Nome);
