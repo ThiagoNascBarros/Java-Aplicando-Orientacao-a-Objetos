@@ -1,7 +1,5 @@
 package Challenges.Aluno;
 
-import Challenges.Carro.Carro;
-
 class Main {
 
     public static void main(String[] args) {
