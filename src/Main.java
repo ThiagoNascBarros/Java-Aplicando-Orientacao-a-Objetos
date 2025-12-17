@@ -7,16 +7,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        /*Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
 
-        System.out.print("Digite seu filme: ");
-        var filme = input.next();
-        */
+        System.out.print("Pesquise seu filme: ");
+        var filme = input.nextLine();
+        var URL = "https://www.omdbapi.com/?t=" + filme + "&apikey=abd3a916";
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                //.uri(URI.create("https://www.omdbapi.com/?t=" + filme + "&apikey=abd3a916"))
-                .uri(URI.create("https://www.omdbapi.com/?i=tt3896198&apikey=abd3a916"))
+                .uri(URI.create(URL))
                 .build();
 
         HttpResponse<String> response = client
