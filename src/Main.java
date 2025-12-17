@@ -1,60 +1,27 @@
-import br.com.alura.screenmatch.Calcular.CalculadoraDeTempo;
-import br.com.alura.screenmatch.Calcular.FiltroRecomendacao;
-import br.com.alura.screenmatch.Model.Episodio;
-import br.com.alura.screenmatch.Model.Filme;
-import br.com.alura.screenmatch.Model.Serie;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        Filme velozes_e_furiosos = new Filme();
-        Serie OnMyBlock =  new Serie();
+    public static void main(String[] args) throws IOException, InterruptedException {
+        /*Scanner input = new Scanner(System.in);
 
-        OnMyBlock.setNome("On My Block");
-        OnMyBlock.setAnoDeLancamento(2018);
-        OnMyBlock.setTemporadas(5);
-        OnMyBlock.setEpisodiosPorTemporada(10);
-        OnMyBlock.setMinutosPorEpisodios(50);
-        System.out.println("Duração para maratonar " + OnMyBlock.getNome() + ":\n" + OnMyBlock.getDuracaoEmMinutos());
+        System.out.print("Digite seu filme: ");
+        var filme = input.next();
+        */
 
-        velozes_e_furiosos.setNome("Velozes e furiosos");
-        velozes_e_furiosos.setAnoDeLancamento(2016);
-        velozes_e_furiosos.setDuracaoEmMinutos(160);
-        velozes_e_furiosos.setIncluidoNoPlano(true);
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                //.uri(URI.create("https://www.omdbapi.com/?t=" + filme + "&apikey=abd3a916"))
+                .uri(URI.create("https://www.omdbapi.com/?i=tt3896198&apikey=abd3a916"))
+                .build();
 
-        // Utilizando toString para exibir dados do Objeto Filmef
-        // System.out.println(velozes_e_furiosos.toString());
+        HttpResponse<String> response = client
+                .send(request, HttpResponse.BodyHandlers.ofString());
 
-        velozes_e_furiosos.avaliar(8);
-        velozes_e_furiosos.avaliar(9);
-        velozes_e_furiosos.avaliar(1);
-        velozes_e_furiosos.avaliar(10);
-
-        velozes_e_furiosos.exibeFichaTecnica();
-        System.out.println("\nSoma das avaliações: " + velozes_e_furiosos.getSomaDasAvaliacoes());
-        System.out.println("Total das avaliações: " + velozes_e_furiosos.getTotalDeAvaliacoes());
-        System.out.println("Média das avaliações: " + velozes_e_furiosos.obterMediaDasAvaliacoes());
-        Filme filmeExemplo = new Filme();
-        filmeExemplo.setNome("Loasts e furiosos");
-        filmeExemplo.setAnoDeLancamento(2026);
-        filmeExemplo.setDuracaoEmMinutos(100);
-        filmeExemplo.setIncluidoNoPlano(true);
-
-        CalculadoraDeTempo calc = new  CalculadoraDeTempo();
-        calc.Inclui(velozes_e_furiosos);
-        calc.Inclui(filmeExemplo);
-        calc.Inclui(OnMyBlock);
-        System.out.println(calc.getTempoTotal());
-
-        FiltroRecomendacao filtroRecomendacaao = new FiltroRecomendacao();
-        filtroRecomendacaao.Filtra(velozes_e_furiosos);
-        filtroRecomendacaao.Filtra(OnMyBlock);
-
-        Episodio ep = new  Episodio();
-        ep.setNumero(1);
-        ep.setNome(OnMyBlock.getNome() + " - A Batalha com os romanos");
-        ep.setSerie(OnMyBlock);
-        ep.setTotalDeVisualizacoes(200);
-
-        filtroRecomendacaao.Filtra(ep);
+        System.out.println(response.body());
     }
 }
