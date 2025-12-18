@@ -1,5 +1,7 @@
 package br.com.alura.screenmatch.Model;
 
+import br.com.alura.screenmatch.Exception.ExceptionUnknow;
+
 public class Titulo {
     private String Nome;
     private int AnoDeLancamento;
@@ -8,6 +10,24 @@ public class Titulo {
     private int TotalDeAvaliacoes;
     private int DuracaoEmMinutos;
     private int CountAvallicoes;
+
+    public Titulo(String nome, int anoDeLancamento) {
+        this.Nome = nome;
+        this.AnoDeLancamento = anoDeLancamento;
+    }
+
+    public Titulo() { }
+
+    public Titulo(TituloOmdb meuTituloOmdb) {
+        this.Nome = meuTituloOmdb.title();
+
+        if(meuTituloOmdb.year().length() > 4) {
+            throw new ExceptionUnknow("Não consegui converter o ano " +
+                    "porque tem mais de 04 caracteres.");
+        }
+        this.AnoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
+        this.DuracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().substring(0, 2));
+    }
 
     public void avaliar(double nota) {
         var sum = getSomaDasAvaliacoes();
